@@ -51,11 +51,24 @@ _ = $[ \t\n\r]*
 ASSIGN   = _ op:'=' _  { return op; }
 ADD      = _ op:[+-] _ { return op; }
 MUL      = _ op:[*/] _ { return op; }
+COND     = _ op:$([<>=!][=]/[<>]) _ { return op; }
 LEFTPAR  = _"("_
 RIGHTPAR = _")"_
+PYC      = _";"_
+COMA     = _","_
+DOT      = _"."_
+CALL     = _ "call" _
+BEGIN    = _ "begin" _
+END      = _ "end" _
+PROCEDURE = _ "procedure" _
+CONST    = _ "const" _
+VAR      = _ "var" _
 IF       = _ "if" _
 THEN     = _ "then" _
 ELSE     = _ "else" _
+WHILE    = _ "while" _
+DO       = _ "do" _
+ODD      = _ "odd" _
 ID       = _ id:$([a-zA-Z_][a-zA-Z_0-9]*) _ 
             { 
               return { type: 'ID', value: id }; 
