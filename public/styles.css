@@ -1,11 +1,14 @@
 body {
   font-family: Helvetica, Arial, sans-serif; 
   background-image: url('recursos/fondo.jpg');
+  color: white;
 }
 
 h1 {
   color: #990033;
-  font: 32px/1 Helvetica, Arial, sans-serif; }
+  font: 32px/1 Helvetica, Arial, sans-serif; 
+  text-align: right;
+}
 
 header h1 {
   font-size: 40px;
