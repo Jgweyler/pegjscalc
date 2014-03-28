@@ -28,6 +28,10 @@ get '/grammar' do
   erb :grammar
 end
 
+#get '/tests' do
+  #erb : tests       Añadiremos más tarde. Cuando estén funcionando.
+#end
+
 get '/:selected?' do |selected|
   programs = PL0Program.all
   pp programs
@@ -47,6 +51,11 @@ post '/save' do
     c.source = params["input"]
     c.save
   else
+    if PL0Program.all.size > 9
+      c = PL0Program.all.sample()
+      c.destroy!
+    end
+
     c = PL0Program.new
     c.name = params["fname"]
     c.source = params["input"]
