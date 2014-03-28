@@ -28,9 +28,9 @@ get '/grammar' do
   erb :grammar
 end
 
-#get '/tests' do
-  #erb : tests       Añadiremos más tarde. Cuando estén funcionando.
-#end
+get '/tests' do
+  erb : tests       Añadiremos más tarde. Cuando estén funcionando.
+end
 
 get '/:selected?' do |selected|
   programs = PL0Program.all
