@@ -29,7 +29,7 @@ get '/grammar' do
 end
 
 get '/tests' do
-  erb : tests       Añadiremos más tarde. Cuando estén funcionando.
+  erb : tests      
 end
 
 get '/:selected?' do |selected|
