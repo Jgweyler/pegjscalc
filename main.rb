@@ -29,7 +29,7 @@ get '/grammar' do
 end
 
 get '/tests' do
-  erb : tests      
+  erb :tests      
 end
 
 get '/:selected?' do |selected|
