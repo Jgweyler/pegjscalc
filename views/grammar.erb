@@ -20,16 +20,38 @@ Recuerde que un PEG $G$ es una cuaterna $G =(\Sigma,V,P,S)$.
   $V$ que se denomina <i>expresión de arranque</i>.
 </ol>
 <ol>
-  <li> $\Sigma = \{ if, then, else, =, +, -, *, /, (, ), 0 \ldots 9 \}$, 
-  <li> $V = \{ st, exp, term, factor \} \cup$ <br />
-  $\{ASSIGN, ADD, MUL, LEFTPAR, RIGHTPAR \} \cup$ <br />
-  $\{IF, THEN, ELSE, ID, NUMBER, \_ \}$
+  <li> $\Sigma = \{ call, begin, end, procedure, const, var, if, then, else, while, do, odd, <, <=, >, >=, ==, !=, =, +, -, *, /, (, ), 0 \ldots 9 \}$, 
+  <li> $V = \{ prog, block, cons, var, proc, args, st, exp, term, factor \} \cup$ <br />
+  $\{ASSIGN, ADD, MUL, LEFTPAR, RIGHTPAR, PYC, COMA, DOT \} \cup$ <br />
+  $\{CALL, BEGIN, END, PROCEDURE, CONST, VAR, IF, THEN, ELSE, ID, NUMBER, \_ \}$
   <li> Reglas de Análisis:
   <ol>
 <pre>
+prog   = block DOT
+
+block  = VAR var proc st
+       / CONST cons VAR var proc st
+       / CONST cons proc st
+       / proc st
+
+cons   = ID ASSIGN NUMBER (COMA ID ASSIGN NUMBER)* PYC
+
+var    = ID (COMA ID)* PYC
+
+proc   = (PROCEDURE ID args? PYC block PYC)*
+
+args   = LEFTPAR ID (COMA ID)* RIGHTPAR
+
 st     = ID ASSIGN exp
-       / IF exp THEN st ELSE st
-       / IF exp THEN st
+       / CALL ID args?
+       / BEGIN st (PYC st)* END
+       / IF cond THEN st ELSE st
+       / IF cond THEN st
+       / WHILE cond DO st
+       
+cond   = ODD exp
+       / exp COND exp
+
 exp    = term   (ADD term)*
 term   = factor (MUL factor)*
 
@@ -44,9 +66,21 @@ ADD      = _ [+-] _
 MUL      = _ [*/] _
 LEFTPAR  = _"("_
 RIGHTPAR = _")"_
+PYC      = _";"_
+COMA     = _","_
+DOT      = _"."_
+CALL     = _"call"_
+BEGIN    = _"begin"_
+END      = _"end"_
+PROCEDURE= _"procedure"_
+CONST    = _"const"_
+VAR      = _"var"_
 IF       = _ "if" _
 THEN     = _ "then" _
 ELSE     = _ "else" _
+WHILE    = _"while"_
+DO       = _"do"_
+ODD      = _"odd"_
 ID       = _ [a-zA-Z_][a-zA-Z_0-9]* _
 NUMBER   = _ [0-9]+ _
 </pre>
