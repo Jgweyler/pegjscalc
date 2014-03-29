@@ -7,6 +7,11 @@ body {
 h1 {
   color: #990033;
   font: 32px/1 Helvetica, Arial, sans-serif; 
+}
+
+#titulo{
+  color: #990033;
+  font: 32px/1 Helvetica, Arial, sans-serif;
   text-align: right;
 }
 
